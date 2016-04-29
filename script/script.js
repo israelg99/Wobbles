@@ -17,6 +17,8 @@ function create() {
 
 	createPlayer();
 
+	player.animations.breath.play();
+
 	console.log("finished create");
 }
 

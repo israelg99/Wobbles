@@ -31,8 +31,8 @@ function createPlayer() {
     player.sprite.scale.set(1.5);
     player.sprite.smoothed = false;
     
-    player.animations.breath = player.sprite.animations.add('breath', [1,2,3,4], 120);
-    player.animations.walk = player.sprite.animations.add('walk', [5,6,7,8], 60);
+    player.animations.breath = player.sprite.animations.add('breath', [0,1,2,3], 7, true);
+    player.animations.walk = player.sprite.animations.add('walk', [4,5,6,7,6,5], 9, true);
 
     console.log("finished creating player");
 }
