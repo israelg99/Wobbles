@@ -31,6 +31,7 @@ function createPlayer() {
     
     player.sprite.animations.add('breath', [0,1,2,3,2,1], 7, true);
     player.sprite.animations.add('walk', [4,5,6,7,6,5], 9, true);
+    player.sprite.animations.add('run', [20,21,22], 8, true);
 
     console.log("finished creating player");
 }
