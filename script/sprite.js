@@ -10,8 +10,6 @@ class Sprite {
     constructor(frameSize, sprite) {
         this.frameSize = frameSize;
         this.sprite = sprite;
-
-        this.animations = {};
     }
 }
 
@@ -31,8 +29,8 @@ function createPlayer() {
     player.sprite.scale.set(1.5);
     player.sprite.smoothed = false;
     
-    player.animations.breath = player.sprite.animations.add('breath', [0,1,2,3], 7, true);
-    player.animations.walk = player.sprite.animations.add('walk', [4,5,6,7,6,5], 9, true);
+    player.sprite.animations.add('breath', [0,1,2,3], 7, true);
+    player.sprite.animations.add('walk', [4,5,6,7,6,5], 9, true);
 
     console.log("finished creating player");
 }

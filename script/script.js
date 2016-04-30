@@ -17,7 +17,7 @@ function create() {
 
 	createPlayer();
 
-	player.animations.breath.play();
+	player.sprite.animations.getAnimation("breath").play();
 
 	console.log("finished create");
 }
