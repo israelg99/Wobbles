@@ -29,7 +29,7 @@ function createPlayer() {
     player.sprite.scale.set(1.5);
     player.sprite.smoothed = false;
     
-    player.sprite.animations.add('breath', [0,1,2,3], 7, true);
+    player.sprite.animations.add('breath', [0,1,2,3,2,1], 7, true);
     player.sprite.animations.add('walk', [4,5,6,7,6,5], 9, true);
 
     console.log("finished creating player");
