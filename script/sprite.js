@@ -33,5 +33,16 @@ function createPlayer() {
     player.sprite.animations.add('walk', [4,5,6,7,6,5], 9, true);
     player.sprite.animations.add('run', [20,21,22], 7, true);
 
+    player.sprite.animations.add('punch1', [10,11,12], 8.5, false);
+    player.sprite.animations.add('punch2', [51,52], 6, false);
+    player.sprite.animations.add('uppercut', [12,13], 7, false);
+    player.sprite.animations.add('round_kick', [49,39,29,19,18,17], 8.5, false);
+
+    player.sprite.animations.add('fall_back', [30,31,32,33,35,34], 10, false);
+    player.sprite.animations.add('fall_forward', [40,41,42,43,45,44], 10, false);
+
+    player.sprite.animations.add('hurt', [46,47,48], 5, false);
+
+
     console.log("finished creating player");
 }
