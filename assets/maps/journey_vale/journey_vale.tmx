@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="30" tilewidth="128" tileheight="128" nextobjectid="1">
+ <tileset firstgid="1" name="Journey Vale Tiles" tilewidth="128" tileheight="128">
+  <image source="Journey Vale Tiles.png" width="1792" height="3328"/>
+ </tileset>
+ <layer name="Collision Layer" width="60" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1EVsFVEUgOEWilux4pTi1iIJriusFElwXaBbdIt7cA/uwd3d3d1ddjgEEuRjT6AJ7z028yffYpLJPfckk4mKCgoKCgoKCgoKCgoKCgpKXa95w1ve8Z4PfOQTn0MwI3t0VFQOYslJLnKTh7zERYdgSCr7xnd+/HowN5o0pCWGdCG4S2FnFKEo8RQjgeKUoGQE981iVlayhXFmeWdXoCKJJFGJylShagT3LWBWQQqFcWZNZ9eiNnWoSz3q04CGEdy3jFllKRfGmY2c3ZgmNKUZyTQnhRYR3LeaWdWpEcaZbZzdlna0pwMd6URnukRw36C/95gnPOUZz3nBS179x3uFoy+peOdr2G8RmlazhrWsYz0b2MgmNrOFrWxjOzs4zglOcorTnOEs5zjPBS5yictcidBOf2onu9jNHvayj/0c4CCHOMwRjnKMq1zjOje4yS1uc4e73OM+D3jIo4hs9PtS842Gq3/59n/91tOQlhjSkZ4MZCQTmclCVrL9001D2xCGMozhjGAkoxjNGMYyjvFMIAex5CQXuclDXuLIR34KUJBCVKAiiSRRicph3KsHPelFb/rQl4lMYjJTmMo0pjODmcxiNnOYSxGKEk8xEihOCUpSitKUoSzlqEVt6lCXetSnMU1oSjOSaU4KLWhJK1rTlna0pwMd6URnutCVbnSnH/0ZwEAGMZh5zGcBC1nEYpawlGUsZwUrWcVP00B24w==
+  </data>
+ </layer>
+</map>

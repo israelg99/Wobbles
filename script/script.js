@@ -1,6 +1,7 @@
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(1280, 720, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+var cursors;
 
 function preload() {
 	console.log("preload");
@@ -13,11 +14,20 @@ function preload() {
 function create() {
 	console.log("create");
 
+	createPhysics(250);
+
+	createBackground('#000000');
+
 	createGroups();
 
 	createPlayer();
 
-	player.sprite.animations.getAnimation("breath").play();
+	addMaps();
+	setCurrentMap(maps.journeyVale)
+
+	setupCamera(player.sprite);
+
+	createInput();
 
 	console.log("finished create");
 }
@@ -25,4 +35,24 @@ function create() {
 function update() {
 	// If we log here, it will spam the whole console, trust me, it works :)
 
+	player.update();
+
+}
+
+
+function createBackground(color) {
+	game.stage.backgroundColor = color;
+}
+
+function createPhysics(gravity) {
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+	game.physics.arcade.gravity.y = gravity;
+}
+
+function createInput() {
+	cursors = game.input.keyboard.createCursorKeys();
+}
+
+function setupCamera(followSprite) {
+	game.camera.follow(followSprite, Phaser.Camera.FOLLOW_PLATFORMER);
 }
