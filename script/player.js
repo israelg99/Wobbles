@@ -109,6 +109,8 @@ class Flare extends Player {
 	    this.sprite.scale.set(1.5);
 	    this.sprite.smoothed = false;
 
+	    this.sprite.body.setSize(this.sprite.body.width-this.sprite.body.width/1.5, this.sprite.body.height-this.sprite.body.height/6)
+
 	    this.setupAnimations();
 	}
 
@@ -133,7 +135,7 @@ class Flare extends Player {
 function createPlayer() {
 	console.log("creating player");
 
-	player = new Flare(frameSizes["flare"].width, frameSizes["flare"].height, game.add.sprite(100, 3300, 'flare', 1, groups.players), {walkingSpeed: 150, runningSpeed: 250});
+	player = new Flare(frameSizes["flare"].width, frameSizes["flare"].height, game.add.sprite(100, 3300, 'flare', 1, groups.players), {walkingSpeed: 180, runningSpeed: 300});
 
     console.log("finished creating player");
 }
