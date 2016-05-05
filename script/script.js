@@ -1,8 +1,6 @@
 
 var game = new Phaser.Game(1280, 720, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-var cursors;
-
 function preload() {
 	console.log("preload");
 
@@ -47,10 +45,6 @@ function createBackground(color) {
 function createPhysics(gravity) {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.arcade.gravity.y = gravity;
-}
-
-function createInput() {
-	cursors = game.input.keyboard.createCursorKeys();
 }
 
 function setupCamera(followSprite) {
