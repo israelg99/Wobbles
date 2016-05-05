@@ -77,22 +77,29 @@ class Player extends Sprite {
 	}
 
  	updateWalkingInput() {
-		if(cursors.left.isDown && cursors.right.isDown) {
+		if(keys.cursors.left.isDown && keys.cursors.right.isDown) {
 			return false;
 		}
 
-	 	if(cursors.right.isDown) {
+	 	if(keys.cursors.right.isDown) {
 			this.flip = 1;
-		} else if(cursors.left.isDown) {
+		} else if(keys.cursors.left.isDown) {
 			this.flip = -1;
 		} else {
 			return false;
 		}
+		
+		if(keys.shift.isDown) {
+			this.sprite.body.velocity.x = this.flip * this.speed.runningSpeed;
+			this.playAnimation("run");
+		} else {
+			// Must be here so we won't reset the animations each time.
+			this.sprite.body.velocity.x = this.flip * this.speed.walkingSpeed;
+			this.playAnimation("walk");
+		}
 
-		this.sprite.body.velocity.x = this.flip * this.speed.walkingSpeed;
 		this.flipPlayer();
 
-		this.playAnimation("walk");
 
 		return true;
 	}

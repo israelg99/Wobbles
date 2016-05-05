@@ -1,6 +1,8 @@
 
-var cursors;
+var keys = {};
 
 function createInput() {
-	cursors = game.input.keyboard.createCursorKeys();
+	keys.cursors = game.input.keyboard.createCursorKeys();
+
+	keys.shift = game.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
 }
