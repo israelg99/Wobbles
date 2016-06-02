@@ -162,7 +162,7 @@ class Flare extends Player {
 		this.sprite.animations.add('walk', [4,5,6,7,6,5], 9, true);
 		this.sprite.animations.add('run', [20,21,22], 7, true);
 
-		this.sprite.animations.add('jumpUp', [60,61,63,112], 13, false);
+		this.sprite.animations.add('jumpUp', [60,61,62], 13, false);
 
 		this.sprite.animations.add('punch1', [10,11,12], 8.5, false);
 		this.sprite.animations.add('punch2', [51,52], 6, false);
@@ -176,14 +176,14 @@ class Flare extends Player {
 	}
 
 	setupFrames() {
-		this.airUpFrame = 112;
+		this.airUpFrame = 62;
 	}
 
 	updateMidAir() {
 		if(this.sprite.body.onFloor() || this.sprite.animations.getAnimation("jumpUp").isPlaying) {
 			return;
 		}
-		this.sprite.frame = 112;
+		this.sprite.frame = 62;
 	}
 }
 
