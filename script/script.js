@@ -12,7 +12,7 @@ function preload() {
 function create() {
 	console.log("create");
 
-	createPhysics(250);
+	createPhysics(1200);
 
 	createBackground('#000000');
 
