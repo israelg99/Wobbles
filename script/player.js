@@ -3,7 +3,7 @@
 var player;
 
 class Player extends Sprite {
-	constructor(width, height, sprite, speed, jumpHeight) {
+	constructor(width, height, sprite, speed, jump) {
 		// Abstract class.
 		abstractClass(new.target, Player);
 
@@ -17,11 +17,12 @@ class Player extends Sprite {
 		this.sprite.body.collideWorldBounds = true;
 		// End of physics stuff.
 
-		this._states = {idle:true};
+		this._states = {idle:true, isJump:true};
 
 		this._flip = 1;
 
-		this.jumpHeight = jumpHeight;
+		this.jump = jump;
+		this.jump.start = 0;
 	}
 
 	get speed() { return this._speed; }
@@ -112,11 +113,24 @@ class Player extends Sprite {
 	}
 
 	updateJumpInput() {
-		if(keys.cursors.up.isDown && this.sprite.body.onFloor()) {
-			this.sprite.body.velocity.y = -this.jumpHeight;
+		if(!keys.cursors.up.isDown) {
+			this.states.isJump = false;
+		}
+
+		if(this.sprite.body.onFloor() && this.sprite.body.velocity.y == 0) {
+			this.sprite.body.velocity.y = -this.jump.speed;
 			this.playAnimation("jumpUp");
 
+			this.states.isJump = true;
+			this.jump.start = game.time.now;
+
 			this.notIdle()
+		} else if(this.states.isJump && this.sprite.body.velocity.y < 0 && game.time.now < this.jump.start+this.jump.duration) {
+			this.sprite.body.velocity.y = -this.jump.speed;
+
+			this.notIdle()
+		} else {
+			this.states.isJump = false;
 		}
 	}
 
@@ -150,7 +164,7 @@ class Player extends Sprite {
 
 class Flare extends Player {
 	constructor(width, height, sprite, speed) {
-		super(width, height, sprite, speed, 600)
+		super(width, height, sprite, speed, {speed:400, duration:300})
 
 		// Refactor the physics stuff.
 		this.sprite.body.bounce.y = 0;
