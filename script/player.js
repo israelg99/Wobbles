@@ -121,10 +121,18 @@ class Player extends Sprite {
 	}
 
 	updateMidAir() {
+
+		console.log("Abstract updateMidAir() is called!!")
+
 		if(this.sprite.body.onFloor() || this.sprite.animations.getAnimation("jumpUp").isPlaying) {
 			return;
 		}
-		this.playAnimation("airUp");
+
+		if(this.sprite.body.velocity.x == 0) {
+			this.playAnimation("airUp");
+		} else {
+			this.playAnimation("airSides");
+		}
 	}
 
 	notIdle() {
@@ -163,6 +171,7 @@ class Flare extends Player {
 		this.sprite.animations.add('run', [20,21,22], 7, true);
 
 		this.sprite.animations.add('jumpUp', [60,61,62], 13, false);
+		this.sprite.animations.add('jumpSide', [60,61,63,112], 13, false);
 
 		this.sprite.animations.add('punch1', [10,11,12], 8.5, false);
 		this.sprite.animations.add('punch2', [51,52], 6, false);
@@ -177,13 +186,19 @@ class Flare extends Player {
 
 	setupFrames() {
 		this.airUpFrame = 62;
+		this.airSidesFrame = 112;
 	}
 
 	updateMidAir() {
 		if(this.sprite.body.onFloor() || this.sprite.animations.getAnimation("jumpUp").isPlaying) {
 			return;
 		}
-		this.sprite.frame = 62;
+
+		if(this.sprite.body.velocity.x == 0) {
+			this.sprite.frame = this.airUpFrame;
+		} else {
+			this.sprite.frame = this.airSidesFrame;
+		}
 	}
 }
 

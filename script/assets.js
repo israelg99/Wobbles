@@ -29,9 +29,7 @@ function loadCharacters() {
 }
 
 function loadFlare() {
-    game.load.spritesheet('flare', '../assets/sprites/characters/flare/flare_0.png', frameSizes.flare.width, frameSizes.flare.height);
-    game.load.spritesheet('flare', '../assets/sprites/characters/flare/flare_1.png', frameSizes.flare.width, frameSizes.flare.height);
-    game.load.spritesheet('flare', '../assets/sprites/characters/flare/flare_2.png', frameSizes.flare.width, frameSizes.flare.height);
+    game.load.spritesheet('flare', '../assets/sprites/characters/flare/flare.png', frameSizes.flare.width, frameSizes.flare.height);
 }
 
 
