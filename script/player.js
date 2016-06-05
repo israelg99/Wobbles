@@ -21,8 +21,10 @@ class Player extends Sprite {
 
 		this._flip = 1;
 
-		this.jump = jump;
-		this.jump.start = 0;
+		this._jump = jump;
+		this._jump.start = 0;
+
+		this._animation = "";
 	}
 
 	get speed() { return this._speed; }
@@ -30,6 +32,12 @@ class Player extends Sprite {
 
 	get flip() { return this._flip; }
 	set flip(flip) { this._flip = flip; }
+
+	get jump() { return this._jump; }
+	set jump(jump) { this._jump = jump; }
+
+	get animation() { return this._animation; }
+	set animation(animation) { this._animation = animation; }
 
 	get states() { return this._states; }
 
@@ -60,6 +68,17 @@ class Player extends Sprite {
 		this.updateMidAir();
 
 		this.updateIdle();
+
+		this.playSprite();
+	}
+
+	playSprite() {
+		console.log(this.animation);
+		if(typeof this.animation == "string") {
+			this.playAnimation(this.animation);
+		} else {
+			this.sprite.frame = this.animation;
+		}
 	}
 
 	physicsUpdate() {
@@ -71,20 +90,19 @@ class Player extends Sprite {
 	}
 
 	updateInput() {
-		this.sprite.body.velocity.x = 0;
-
 		this.updateWalkInput();
 		this.updateJumpInput();
 	}
 
 	updateIdle() {
 		if(this.states.idle) {
-			this.playAnimation("breath");
+			this.animation = "breath";
 		}
 	}
 
 	updateWalkInput() {
 		if(keys.cursors.left.isDown && keys.cursors.right.isDown) {
+			this.sprite.body.velocity.x = 0;
 			return;
 		}
 
@@ -93,19 +111,21 @@ class Player extends Sprite {
 		} else if(keys.cursors.left.isDown) {
 			this.flip = -1;
 		} else {
+			this.sprite.body.velocity.x = 0;
 			return;
 		}
 
-		this.sprite.body.velocity.x = this.flip * this.speed.walkingSpeed;
 
-		if(this.sprite.body.onFloor()) {
-			if(keys.shift.isDown) {
-				this.sprite.body.velocity.x = this.flip * this.speed.runningSpeed;
-				this.playAnimation("run");
-			} else {
-				this.playAnimation("walk");
-			}
+		this.sprite.body.velocity.x = this.speed.walking;
+
+		if(keys.shift.isDown) {
+			this.sprite.body.velocity.x = this.speed.running;
+			if(this.sprite.body.onFloor()) { this.animation = "run"; }
+		} else {
+			if(this.sprite.body.onFloor()) { this.animation = "walk"; }
 		}
+
+		this.sprite.body.velocity.x = Math.abs(this.sprite.body.velocity.x) * this.flip;
 
 		this.flipPlayer();
 
@@ -115,11 +135,14 @@ class Player extends Sprite {
 	updateJumpInput() {
 		if(!keys.cursors.up.isDown) {
 			this.states.isJump = false;
+			return;
 		}
 
 		if(this.sprite.body.onFloor() && this.sprite.body.velocity.y == 0) {
 			this.sprite.body.velocity.y = -this.jump.speed;
-			this.playAnimation("jumpUp");
+
+			this.animation = this.sprite.body.velocity.x == 0 ? "jumpUp" : "jumpSide";
+
 
 			this.states.isJump = true;
 			this.jump.start = game.time.now;
@@ -138,15 +161,6 @@ class Player extends Sprite {
 
 		console.log("Abstract updateMidAir() is called!!")
 
-		if(this.sprite.body.onFloor() || this.sprite.animations.getAnimation("jumpUp").isPlaying) {
-			return;
-		}
-
-		if(this.sprite.body.velocity.x == 0) {
-			this.playAnimation("airUp");
-		} else {
-			this.playAnimation("airSides");
-		}
 	}
 
 	notIdle() {
@@ -199,19 +213,19 @@ class Flare extends Player {
 	}
 
 	setupFrames() {
-		this.airUpFrame = 62;
-		this.airSidesFrame = 112;
+		this.airFrames = {up:62, side:112};
 	}
 
 	updateMidAir() {
-		if(this.sprite.body.onFloor() || this.sprite.animations.getAnimation("jumpUp").isPlaying) {
+		if(this.sprite.body.onFloor() || this.sprite.animations.getAnimation("jumpUp").isPlaying || this.sprite.animations.getAnimation("jumpSide").isPlaying) {
 			return;
 		}
 
+		this.notIdle()
+
+		this.animation = this.airFrames.side;
 		if(this.sprite.body.velocity.x == 0) {
-			this.sprite.frame = this.airUpFrame;
-		} else {
-			this.sprite.frame = this.airSidesFrame;
+			this.animation = this.airFrames.up;
 		}
 	}
 }
@@ -220,7 +234,7 @@ class Flare extends Player {
 function createPlayer() {
 	console.log("creating player");
 
-	player = new Flare(frameSizes["flare"].width, frameSizes["flare"].height, game.add.sprite(100, 3300, 'flare', 1, groups.players), {walkingSpeed: 180, runningSpeed: 300});
+	player = new Flare(frameSizes["flare"].width, frameSizes["flare"].height, game.add.sprite(100, 3300, 'flare', 1, groups.players), {walking: 180, running: 300});
 
 	console.log("finished creating player");
 }
